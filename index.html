@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zorwa | Strategy Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+:root {
+  --bg: #050505;
+  --blue: #3B82F6;
+  --cyan: #06B6D4;
+  --pink: #EC4899;
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --text: #E5E7EB;
+  --text-dim: #9CA3AF;
+  --text-bright: #F9FAFB;
+}
+
+.reveal-viewport {
+  background: var(--bg) !important;
+}
+
+.reveal {
+  font-family: 'Inter', sans-serif;
+  color: var(--text);
+  font-size: 28px;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+  font-family: 'Inter', sans-serif;
+  color: var(--text-bright);
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.reveal h1 { font-size: 2.8em; font-weight: 900; }
+.reveal h2 { font-size: 1.6em; margin-bottom: 0.6em; }
+.reveal h3 { font-size: 1.1em; font-weight: 600; color: var(--cyan); margin-bottom: 0.4em; }
+
+.reveal p { line-height: 1.5; }
+
+.reveal .slides section {
+  text-align: left;
+  padding: 40px 60px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-pink {
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.glass-sm {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  backdrop-filter: blur(12px);
+}
+
+/* Tables */
+.reveal table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.55em;
+  margin: 0.5em 0;
+  background: var(--glass-bg);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.reveal table th {
+  background: rgba(59,130,246,0.15);
+  color: var(--cyan);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.reveal table td {
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text);
+}
+
+.reveal table tr:last-child td { border-bottom: none; }
+.reveal table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* Module grid */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.module-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(59,130,246,0.3);
+}
+
+.module-icon {
+  font-size: 1.6em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.module-card h4 {
+  font-size: 0.65em;
+  margin: 0 0 6px;
+  color: var(--text-bright);
+}
+
+.module-card p {
+  font-size: 0.42em;
+  color: var(--text-dim);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Stat blocks */
+.stat-row {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.stat-block {
+  flex: 1;
+  min-width: 140px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.8em;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-number.pink {
+  background: linear-gradient(135deg, var(--pink), #F472B6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  font-size: 0.45em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* Tags / pills */
+.tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.5em;
+  font-weight: 600;
+  margin: 3px 4px;
+}
+
+.tag-blue { background: rgba(59,130,246,0.15); color: var(--blue); border: 1px solid rgba(59,130,246,0.3); }
+.tag-cyan { background: rgba(6,182,212,0.15); color: var(--cyan); border: 1px solid rgba(6,182,212,0.3); }
+.tag-pink { background: rgba(236,72,153,0.15); color: var(--pink); border: 1px solid rgba(236,72,153,0.3); }
+
+/* Bullet list */
+.reveal ul, .reveal ol {
+  margin-left: 0;
+  padding-left: 1.2em;
+}
+
+.reveal li {
+  font-size: 0.72em;
+  margin-bottom: 0.35em;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.reveal li strong { color: var(--text-bright); }
+
+/* Small text */
+.small { font-size: 0.55em; color: var(--text-dim); }
+.micro { font-size: 0.42em; color: var(--text-dim); }
+
+/* Title slide special */
+.title-slide {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-slide h1 {
+  margin-bottom: 0;
+}
+
+.arabic-title {
+  font-size: 2em;
+  font-weight: 300;
+  color: var(--cyan);
+  margin: 0;
+  direction: rtl;
+  letter-spacing: 0.05em;
+}
+
+.tagline {
+  font-size: 1em;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin: 16px 0 30px;
+  letter-spacing: 0.06em;
+}
+
+.grg-badge {
+  font-size: 0.45em;
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: 1px solid var(--glass-border);
+  padding: 6px 20px;
+  border-radius: 20px;
+  background: var(--glass-bg);
+}
+
+/* Mountain SVG glow */
+.mountain-container {
+  position: relative;
+  margin: 20px auto 30px;
+  width: 320px;
+  height: 140px;
+}
+
+.mountain-container svg {
+  filter: drop-shadow(0 0 30px rgba(59,130,246,0.3));
+}
+
+/* Timeline */
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  margin: 24px 0;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--blue), var(--cyan), var(--pink));
+  border-radius: 2px;
+}
+
+.timeline-item {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  padding-top: 44px;
+}
+
+.timeline-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--blue);
+  border: 3px solid var(--bg);
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 0 12px rgba(59,130,246,0.5);
+}
+
+.timeline-item:nth-child(2) .timeline-dot { background: var(--cyan); box-shadow: 0 0 12px rgba(6,182,212,0.5); }
+.timeline-item:nth-child(3) .timeline-dot { background: #8B5CF6; box-shadow: 0 0 12px rgba(139,92,246,0.5); }
+.timeline-item:nth-child(4) .timeline-dot { background: var(--pink); box-shadow: 0 0 12px rgba(236,72,153,0.5); }
+.timeline-item:nth-child(5) .timeline-dot { background: #F59E0B; box-shadow: 0 0 12px rgba(245,158,11,0.5); }
+
+.timeline-label {
+  font-size: 0.42em;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.timeline-desc {
+  font-size: 0.36em;
+  color: var(--text-dim);
+  line-height: 1.35;
+  padding: 0 6px;
+}
+
+/* Flywheel */
+.flywheel {
+  width: 340px;
+  height: 340px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.flywheel-ring {
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--glass-border);
+  border-radius: 50%;
+  animation: spin 20s linear infinite;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.flywheel-node {
+  position: absolute;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.4em;
+  font-weight: 600;
+  color: var(--text-bright);
+  white-space: nowrap;
+}
+
+/* Channel grid */
+.channel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.channel-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.channel-card h4 {
+  font-size: 0.55em;
+  margin: 0 0 4px;
+  color: var(--text-bright);
+}
+
+.channel-card p {
+  font-size: 0.38em;
+  margin: 0;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+.channel-letter {
+  font-size: 0.48em;
+  font-weight: 800;
+  color: var(--blue);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Comparison */
+.vs-container {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.vs-card {
+  flex: 1;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+}
+
+.vs-divider {
+  font-size: 1.2em;
+  font-weight: 800;
+  color: var(--text-dim);
+}
+
+/* Scenario bars */
+.scenario-bars {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  align-items: flex-end;
+  height: 240px;
+}
+
+.scenario-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.scenario-bar {
+  width: 100%;
+  border-radius: 10px 10px 4px 4px;
+  position: relative;
+  min-height: 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.scenario-bar-label {
+  font-size: 0.42em;
+  font-weight: 600;
+  color: var(--text-bright);
+  margin-top: 10px;
+}
+
+.scenario-bar-value {
+  font-size: 0.8em;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+/* Progress bar override */
+.reveal .progress {
+  height: 3px;
+  background: rgba(255,255,255,0.05);
+}
+
+.reveal .progress span {
+  background: linear-gradient(90deg, var(--blue), var(--cyan)) !important;
+}
+
+/* Slide number */
+.reveal .slide-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text-dim);
+  background: transparent !important;
+  right: 20px;
+  bottom: 14px;
+}
+
+/* Big quote */
+.big-quote {
+  font-size: 1.1em;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-dim);
+  border-left: 3px solid var(--cyan);
+  padding-left: 24px;
+  margin: 24px 0;
+  line-height: 1.5;
+}
+
+/* Centered slide */
+.center-slide {
+  text-align: center !important;
+}
+
+/* Horizontal rule / separator */
+.sep {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--glass-border), transparent);
+  margin: 16px 0;
+  border: none;
+}
+
+/* Team grid */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.team-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.team-card .name {
+  font-size: 0.6em;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 2px;
+}
+
+.team-card .role {
+  font-size: 0.4em;
+  color: var(--cyan);
+  font-weight: 500;
+}
+
+.team-card .detail {
+  font-size: 0.36em;
+  color: var(--text-dim);
+  margin-top: 6px;
+  line-height: 1.3;
+}
+
+/* Glow accents */
+.glow-blue {
+  box-shadow: 0 0 40px rgba(59,130,246,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 40px rgba(6,182,212,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.glow-pink {
+  box-shadow: 0 0 40px rgba(236,72,153,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Competitive check table */
+.reveal table.comp-table {
+  font-size: 0.42em;
+}
+
+.reveal table.comp-table td:nth-child(n+3),
+.reveal table.comp-table th:nth-child(n+3) {
+  text-align: center;
+}
+
+.check { color: #10B981; font-weight: 700; }
+.cross { color: #6B7280; }
+
+/* Animate fragments */
+.reveal .fragment.fade-up {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.reveal .fragment.fade-up.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Inline highlight */
+.highlight {
+  color: var(--cyan);
+  font-weight: 600;
+}
+
+.highlight-pink {
+  color: var(--pink);
+  font-weight: 600;
+}
+
+.highlight-blue {
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* Section divider */
+.section-divider {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-divider h2 {
+  font-size: 2em;
+}
+
+.section-number {
+  font-size: 3em;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+/* CTA slide */
+.cta-slide {
+  text-align: center !important;
+}
+
+.cta-slide h2 {
+  font-size: 2.2em;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .module-grid, .channel-grid, .team-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-row { flex-wrap: wrap; }
+  .vs-container { flex-direction: column; gap: 15px; }
+  .reveal { font-size: 22px; }
+}
+
+/* Subtle background pattern */
+.reveal .slides {
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.06) 0%, transparent 60%);
+}
+
+/* Crisis bar chart */
+.crisis-bars {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  height: 180px;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.crisis-bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.crisis-bar {
+  width: 100%;
+  border-radius: 6px 6px 2px 2px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crisis-bar-val {
+  font-size: 0.48em;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+.crisis-bar-name {
+  font-size: 0.34em;
+  color: var(--text-dim);
+  margin-top: 8px;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Keyframe for pulse */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.pulse { animation: pulse 2s ease-in-out infinite; }
+
+/* Two column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+.two-col-60-40 {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 30px;
+  align-items: start;
+}
+</style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ============================================ -->
+<!-- SLIDE 1: TITLE -->
+<!-- ============================================ -->
+<section class="title-slide" data-background-gradient="radial-gradient(ellipse at 50% 30%, rgba(59,130,246,0.08) 0%, #050505 70%)">
+  <div class="mountain-container">
+    <svg viewBox="0 0 320 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="mtnGrad" x1="0" y1="0" x2="320" y2="140" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.8"/>
+          <stop offset="50%" stop-color="#06B6D4" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#EC4899" stop-opacity="0.4"/>
+        </linearGradient>
+        <linearGradient id="mtnGrad2" x1="0" y1="0" x2="320" y2="140" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.15"/>
+        </linearGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- Background range -->
+      <polygon points="0,140 40,95 90,110 130,70 170,90 210,55 260,80 300,65 320,140" fill="url(#mtnGrad2)"/>
+      <!-- Main peak -->
+      <polygon points="60,140 160,20 260,140" fill="url(#mtnGrad)" opacity="0.6"/>
+      <!-- Snow cap -->
+      <polygon points="140,45 160,20 180,45 170,42 160,50 150,42" fill="rgba(255,255,255,0.25)"/>
+      <!-- Summit star -->
+      <circle cx="160" cy="16" r="4" fill="#06B6D4" filter="url(#glow)" opacity="0.9"/>
+      <circle cx="160" cy="16" r="2" fill="white"/>
+      <!-- Accent peaks -->
+      <polygon points="20,140 80,75 140,140" fill="rgba(59,130,246,0.15)"/>
+      <polygon points="180,140 250,60 320,140" fill="rgba(6,182,212,0.15)"/>
+    </svg>
+  </div>
+  <h1 class="gradient-text" style="margin-top:0">ZORWA</h1>
+  <p class="arabic-title">&#x0632;&#x064F;&#x0631;&#x0652;&#x0648;&#x064E;&#x0629;</p>
+  <p class="tagline">Reach Your Peak</p>
+  <div class="grg-badge">A GRG Product</div>
+  <aside class="notes">
+    Zorwa means "peak" / "summit" in Arabic. This deck covers the full strategy: product, business model, distribution, financials, and execution roadmap.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 2: THE PROBLEM -->
+<!-- ============================================ -->
+<section data-auto-animate>
+  <h2><span class="gradient-pink">The Problem</span></h2>
+  <div class="stat-row">
+    <div class="stat-block glow-pink">
+      <div class="stat-number pink">285</div>
+      <div class="stat-label">Applications per job in Dubai</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">25M</div>
+      <div class="stat-label">LinkedIn members in GCC</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">$5.5B</div>
+      <div class="stat-label">GCC HR Tech by 2032</div>
+    </div>
+  </div>
+  <ul>
+    <li>The Gulf job market is <strong>brutally competitive</strong> and getting worse during crisis</li>
+    <li>Job seekers apply everywhere, hear nothing, repeat &mdash; no structured improvement system</li>
+    <li>Nobody has built a <strong>gamified career acceleration platform</strong> for this region</li>
+    <li>140K professionals already pay $360/yr for <strong>generic</strong> LinkedIn Premium</li>
+  </ul>
+  <aside class="notes">
+    285 is the average in normal periods. During crisis this climbs even higher. The market is ripe for a solution that actually helps candidates improve, not just apply.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 3: THE OPPORTUNITY -->
+<!-- ============================================ -->
+<section>
+  <h2><span class="gradient-text">The Opportunity</span></h2>
+  <p class="small" style="margin-bottom:12px">Crisis creates demand. 6 historical benchmarks prove career tools spike during downturns.</p>
+
+  <div class="crisis-bars">
+    <div class="crisis-bar-wrap">
+      <div class="crisis-bar" style="height:90%;background:linear-gradient(180deg,#3B82F6,#1E40AF);border:1px solid rgba(59,130,246,0.3)">
+        <span class="crisis-bar-val">+640%</span>
+      </div>
+      <span class="crisis-bar-name">Coursera<br>COVID 2020</span>
+    </div>
+    <div class="crisis-bar-wrap">
+      <div class="crisis-bar" style="height:62%;background:linear-gradient(180deg,#06B6D4,#0E7490)">
+        <span class="crisis-bar-val">+425%</span>
+      </div>
+      <span class="crisis-bar-name">Udemy<br>COVID 2020</span>
+    </div>
+    <div class="crisis-bar-wrap">
+      <div class="crisis-bar" style="height:30%;background:linear-gradient(180deg,#8B5CF6,#6D28D9)">
+        <span class="crisis-bar-val">+22%</span>
+      </div>
+      <span class="crisis-bar-name">MBA Apps<br>2008 Crisis</span>
+    </div>
+    <div class="crisis-bar-wrap">
+      <div class="crisis-bar" style="height:35%;background:linear-gradient(180deg,#EC4899,#BE185D)">
+        <span class="crisis-bar-val">+33%</span>
+      </div>
+      <span class="crisis-bar-name">Employer Reqs<br>Great Recession</span>
+    </div>
+    <div class="crisis-bar-wrap">
+      <div class="crisis-bar" style="height:40%;background:linear-gradient(180deg,#F59E0B,#B45309)">
+        <span class="crisis-bar-val">+30%</span>
+      </div>
+      <span class="crisis-bar-name">Dubai Pop.<br>5yr Recovery</span>
+    </div>
+    <div class="crisis-bar-wrap">
+      <div class="crisis-bar" style="height:50%;background:linear-gradient(180deg,#10B981,#047857)">
+        <span class="crisis-bar-val">Surge</span>
+      </div>
+      <span class="crisis-bar-name">Asia '97<br>Education</span>
+    </div>
+  </div>
+
+  <div class="glass-sm" style="text-align:center;margin-top:8px">
+    <span style="font-size:0.6em;font-weight:600;color:var(--cyan)">The crisis creates the audience. The recovery creates the revenue.</span>
+  </div>
+  <aside class="notes">
+    Every major economic crisis in the last 30 years has triggered education enrollment surges. Platforms that exist during the downturn capture the upswing. COVID saw Coursera grow 640% in 4 weeks.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 4: WHAT IS ZORWA -->
+<!-- ============================================ -->
+<section class="section-divider" data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(6,182,212,0.06) 0%, #050505 70%)">
+  <div class="section-number">01</div>
+  <h2>What is Zorwa?</h2>
+  <p style="font-size:0.7em;color:var(--text-dim);max-width:700px;margin:0 auto">
+    <strong class="highlight">Gamified career acceleration</strong> for Gulf job seekers.<br>
+    Think <span class="highlight-pink">Duolingo</span> for career readiness &mdash; daily practice, streaks, scores, leveling up.
+  </p>
+  <div class="stat-row" style="justify-content:center;margin-top:30px">
+    <div class="stat-block" style="max-width:180px">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Modules</div>
+    </div>
+    <div class="stat-block" style="max-width:180px">
+      <div class="stat-number pink">1</div>
+      <div class="stat-label">Career Score</div>
+    </div>
+    <div class="stat-block" style="max-width:180px">
+      <div class="stat-number">GCC</div>
+      <div class="stat-label">Region Focus</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 5: 6 MODULES -->
+<!-- ============================================ -->
+<section>
+  <h2>Six Modules</h2>
+  <div class="module-grid">
+    <div class="module-card glow-blue">
+      <span class="module-icon">&#x1F4C4;</span>
+      <h4>CV Studio</h4>
+      <p>Audit &amp; tailor CVs for each role. Gulf recruiter intelligence baked in.</p>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">&#x1F3A4;</span>
+      <h4>Interview Studio</h4>
+      <p>Core HR prep, role-specific questions from CV, post-interview feedback.</p>
+    </div>
+    <div class="module-card glow-cyan">
+      <span class="module-icon">&#x1F4BC;</span>
+      <h4>Job Hub</h4>
+      <p>CV-to-JD fit analysis. Natural language search. Daily matching alerts.</p>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">&#x1F91D;</span>
+      <h4>Networking Hub</h4>
+      <p>Weekly connection recommendations. Outreach messages. Gmail integration.</p>
+    </div>
+    <div class="module-card glow-pink">
+      <span class="module-icon">&#x2728;</span>
+      <h4>Personal Branding</h4>
+      <p>Identity audit. Communication coaching. Profile perception guidance.</p>
+    </div>
+    <div class="module-card">
+      <span class="module-icon">&#x1F4DA;</span>
+      <h4>Knowledge Hub</h4>
+      <p>5-minute daily learning. Expert content. Personalized feed. Streak mechanic.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Each module has its own retention mechanic. CV Studio brings users back every time they apply. Knowledge Hub uses daily streaks. Job Hub sends daily alerts.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 6: CAREER SCORE -->
+<!-- ============================================ -->
+<section>
+  <h2>The Career Score <span class="small">&mdash; The Moat</span></h2>
+  <div class="two-col">
+    <div>
+      <p style="font-size:0.65em;margin-bottom:16px">A composite score based on <strong>CV quality, interview readiness, networking activity, skill development, and job market fit</strong>.</p>
+      <ul>
+        <li>A number to <strong>obsess over</strong>: "My score went from 62 to 78 this month"</li>
+        <li>A signal <strong>recruiters trust</strong>: GRG prioritizes high-score candidates</li>
+        <li>Potential to become a <strong>standard</strong> (like IELTS for career readiness)</li>
+        <li>More users = better benchmarking = more valuable scores = more users</li>
+      </ul>
+    </div>
+    <div>
+      <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;margin:0 auto;display:block">
+        <!-- Flywheel circle -->
+        <circle cx="150" cy="150" r="120" stroke="url(#fwGrad)" stroke-width="2" fill="none" stroke-dasharray="6 4" opacity="0.5"/>
+        <defs>
+          <linearGradient id="fwGrad" x1="0" y1="0" x2="300" y2="300">
+            <stop offset="0%" stop-color="#3B82F6"/>
+            <stop offset="100%" stop-color="#06B6D4"/>
+          </linearGradient>
+        </defs>
+        <!-- Arrows (simplified) -->
+        <path d="M150 30 Q250 30 265 130" stroke="#3B82F6" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <path d="M265 170 Q260 260 170 270" stroke="#06B6D4" stroke-width="2" fill="none"/>
+        <path d="M130 270 Q40 260 35 170" stroke="#8B5CF6" stroke-width="2" fill="none"/>
+        <path d="M35 130 Q40 40 130 30" stroke="#EC4899" stroke-width="2" fill="none"/>
+        <!-- Nodes -->
+        <rect x="105" y="8" width="90" height="28" rx="6" fill="rgba(59,130,246,0.15)" stroke="rgba(59,130,246,0.3)"/>
+        <text x="150" y="27" fill="#3B82F6" font-size="11" font-family="Inter" font-weight="600" text-anchor="middle">More Users</text>
+
+        <rect x="225" y="136" width="75" height="28" rx="6" fill="rgba(6,182,212,0.15)" stroke="rgba(6,182,212,0.3)"/>
+        <text x="262" y="155" fill="#06B6D4" font-size="11" font-family="Inter" font-weight="600" text-anchor="middle">Better Data</text>
+
+        <rect x="100" y="265" width="100" height="28" rx="6" fill="rgba(139,92,246,0.15)" stroke="rgba(139,92,246,0.3)"/>
+        <text x="150" y="284" fill="#8B5CF6" font-size="11" font-family="Inter" font-weight="600" text-anchor="middle">Accurate Scores</text>
+
+        <rect x="0" y="136" width="80" height="28" rx="6" fill="rgba(236,72,153,0.15)" stroke="rgba(236,72,153,0.3)"/>
+        <text x="40" y="155" fill="#EC4899" font-size="11" font-family="Inter" font-weight="600" text-anchor="middle">More Value</text>
+
+        <!-- Center label -->
+        <text x="150" y="148" fill="white" font-size="14" font-family="Inter" font-weight="800" text-anchor="middle">CAREER</text>
+        <text x="150" y="165" fill="white" font-size="14" font-family="Inter" font-weight="800" text-anchor="middle">SCORE</text>
+      </svg>
+    </div>
+  </div>
+  <div class="glass-sm" style="text-align:center;margin-top:12px">
+    <span style="font-size:0.5em;color:var(--text-dim)">The moat is not the app. It's the <strong class="highlight">data flywheel</strong> behind the score.</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 7: PRODUCT PRINCIPLES -->
+<!-- ============================================ -->
+<section>
+  <h2>Product Principles</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+    <div class="glass-sm">
+      <h3 style="font-size:0.6em;margin:0 0 8px">&#x1F9E0; AI Teaches, User Does the Work</h3>
+      <p style="font-size:0.48em;margin:0;color:var(--text-dim)">Not AI doing everything. AI sharpens candidate quality. The user puts in the practice.</p>
+    </div>
+    <div class="glass-sm">
+      <h3 style="font-size:0.6em;margin:0 0 8px">&#x1F30D; Regional Intelligence</h3>
+      <p style="font-size:0.48em;margin:0;color:var(--text-dim)">60-70% proprietary GRG intelligence in workflows. Generic global templates are not competition.</p>
+    </div>
+    <div class="glass-sm">
+      <h3 style="font-size:0.6em;margin:0 0 8px">&#x1F504; Daily Utility is Mandatory</h3>
+      <p style="font-size:0.48em;margin:0;color:var(--text-dim)">If users don't open it daily, the habit loop is broken. Streaks, alerts, and practice keep them coming back.</p>
+    </div>
+    <div class="glass-sm">
+      <h3 style="font-size:0.6em;margin:0 0 8px">&#x1F6AB; Not a Job Board</h3>
+      <p style="font-size:0.48em;margin:0;color:var(--text-dim)">Job boards list jobs. Zorwa makes candidates better. We improve the person, not the listing.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    The key differentiator: Zorwa is a coaching platform, not a job board. The AI doesn't replace the user's effort - it directs and multiplies it. Regional intelligence from GRG's 210 recruiters is what no competitor can replicate.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 8: COMPETITIVE LANDSCAPE -->
+<!-- ============================================ -->
+<section>
+  <h2>Competitive Landscape</h2>
+  <p class="small" style="margin-bottom:10px">16 competitors benchmarked. <strong>None</strong> have our combination.</p>
+  <table class="comp-table">
+    <thead>
+      <tr><th>Competitor</th><th>Region</th><th>Price</th><th>Gamification</th><th>Gulf-specific</th><th>Recruiter Net.</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Bayt.com</td><td>GCC</td><td>Free (job board)</td><td class="cross">&#x2715;</td><td>Partial</td><td class="cross">&#x2715;</td></tr>
+      <tr><td>GulfTalent</td><td>GCC</td><td>Premium</td><td class="cross">&#x2715;</td><td>Partial</td><td class="cross">&#x2715;</td></tr>
+      <tr><td>LinkedIn Premium</td><td>Global</td><td>$360/yr</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td></tr>
+      <tr><td>Teal</td><td>US</td><td>$9/wk</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td></tr>
+      <tr><td>Final Round AI</td><td>US</td><td>$99+/mo</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td></tr>
+      <tr><td>Interviewing.io</td><td>US</td><td>$200+/session</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td><td class="cross">&#x2715;</td></tr>
+      <tr style="background:rgba(59,130,246,0.08)"><td><strong style="color:var(--cyan)">Zorwa</strong></td><td><strong>GCC</strong></td><td><strong>$150/yr</strong></td><td class="check">&#x2713;</td><td class="check">&#x2713;</td><td class="check">&#x2713; (210)</td></tr>
+    </tbody>
+  </table>
+  <div class="glass-sm" style="margin-top:10px;text-align:center">
+    <span style="font-size:0.48em;color:var(--text-dim)">Individual features can be copied. The combination with <strong class="highlight">GRG's data and distribution</strong> cannot.</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 9: PRICING -->
+<!-- ============================================ -->
+<section class="section-divider" data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(236,72,153,0.05) 0%, #050505 70%)">
+  <div class="section-number">02</div>
+  <h2>Business Model</h2>
+  <p style="font-size:0.65em;color:var(--text-dim)">Annual-only. No free tier. Signal over vanity.</p>
+</section>
+
+<section>
+  <h2>Pricing: <span class="gradient-text">$150/year</span></h2>
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:0.65em;color:var(--pink)">Why No Free Tier</h3>
+      <ul>
+        <li>Free-to-paid conversion: only <strong>1.5-2.7%</strong> from installs</li>
+        <li>Anchors product at $0 value &mdash; "Why pay now?"</li>
+        <li>Attracts low-intent users who inflate <strong>vanity metrics</strong></li>
+        <li>Support cost on free users <strong>burns cash</strong> for non-payers</li>
+      </ul>
+      <div class="sep"></div>
+      <h3 style="font-size:0.65em;color:var(--cyan)">Why Annual-Only</h3>
+      <ul>
+        <li><strong>Immediate cash flow</strong> &mdash; full price upfront</li>
+        <li><strong>Zero churn for 12 months</strong> &mdash; first renewal is Month 12+</li>
+        <li>Signals commitment &mdash; users who pay <strong>actually use</strong> the product</li>
+        <li>Monthly exists as a fallback, never the hero offer</li>
+      </ul>
+    </div>
+    <div>
+      <div class="glass" style="text-align:center;margin-bottom:16px">
+        <div style="font-size:0.5em;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Annual Plan</div>
+        <div style="font-size:2.6em;font-weight:900;color:var(--text-bright);line-height:1">$150</div>
+        <div style="font-size:0.5em;color:var(--text-dim);margin:8px 0 16px">/year &bull; 14-day trial</div>
+        <div class="sep"></div>
+        <div style="font-size:0.45em;color:var(--text-dim);margin-top:12px">
+          4 pricing experiments pre-launch<br>
+          Test range: $150 &ndash; $249<br>
+          300+ trials per variant<br>
+          <strong class="highlight">Data decides, not opinions</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    Free tier is not off the table forever. It's an option held in reserve. If trial-to-paid falls below the floor after two product iterations, freemium becomes a test variable. Monthly fallback at $19.99-29.99 shown only after annual decline.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 10: UNIT ECONOMICS -->
+<!-- ============================================ -->
+<section>
+  <h2>Unit Economics</h2>
+  <div class="stat-row">
+    <div class="stat-block glow-blue">
+      <div class="stat-number">$600</div>
+      <div class="stat-label">Lifetime Value</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">$15-120</div>
+      <div class="stat-label">CAC by Channel</div>
+    </div>
+    <div class="stat-block glow-cyan">
+      <div class="stat-number">5-20x</div>
+      <div class="stat-label">LTV:CAC Ratio</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">Day 1</div>
+      <div class="stat-label">Payback Period</div>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Channel</th><th>CAC</th><th>LTV:CAC</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>GRG CRM</td><td>$0-15</td><td>40x+</td><td>Push notifications + recruiter referral</td></tr>
+      <tr><td>Organic / Content</td><td>$20-40</td><td>15-30x</td><td>Social media + SEO + community</td></tr>
+      <tr><td>Recruiter Affiliates</td><td>$30-45</td><td>13-20x</td><td>20-30% commission on first year</td></tr>
+      <tr><td>Paid Media (UAE)</td><td>$80-120</td><td>5-7.5x</td><td>Meta CPC AED 4.8 avg</td></tr>
+    </tbody>
+  </table>
+  <p class="micro" style="margin-top:8px">LTV at $150 price / 25% annual churn = $600. Healthy at all channel mixes.</p>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 11: LINKEDIN COMPARISON -->
+<!-- ============================================ -->
+<section>
+  <h2>Why Not Just Use LinkedIn Premium?</h2>
+  <div class="vs-container">
+    <div class="vs-card" style="border-color:rgba(255,255,255,0.1)">
+      <div style="font-size:0.5em;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">LinkedIn Premium Career</div>
+      <div style="font-size:2em;font-weight:800;color:var(--text-dim);line-height:1">$360</div>
+      <div style="font-size:0.5em;color:var(--text-dim);margin:4px 0 16px">/year</div>
+      <div class="sep"></div>
+      <div style="font-size:0.45em;color:var(--text-dim);text-align:left;margin-top:12px;line-height:1.7">
+        &#x2715; Generic global content<br>
+        &#x2715; No Gulf recruiter intelligence<br>
+        &#x2715; No gamification<br>
+        &#x2715; No career score<br>
+        &#x2715; No practice mechanics
+      </div>
+    </div>
+    <div class="vs-divider">vs</div>
+    <div class="vs-card glow-blue" style="border-color:rgba(59,130,246,0.3)">
+      <div style="font-size:0.5em;color:var(--cyan);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">Zorwa</div>
+      <div style="font-size:2em;font-weight:800;line-height:1"><span class="gradient-text">$150</span></div>
+      <div style="font-size:0.5em;color:var(--text-dim);margin:4px 0 16px">/year &bull; <span class="highlight-pink">58% cheaper</span></div>
+      <div class="sep"></div>
+      <div style="font-size:0.45em;color:var(--text);text-align:left;margin-top:12px;line-height:1.7">
+        <span class="check">&#x2713;</span> Gulf-specific coaching<br>
+        <span class="check">&#x2713;</span> 210 GRG recruiters integrated<br>
+        <span class="check">&#x2713;</span> Full gamification system<br>
+        <span class="check">&#x2713;</span> Career Readiness Score<br>
+        <span class="check">&#x2713;</span> Daily practice mechanics
+      </div>
+    </div>
+  </div>
+  <p class="micro" style="text-align:center">~140K professionals in GCC already pay for LinkedIn Premium Career. We're more relevant and 58% cheaper.</p>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 12: DISTRIBUTION SECTION -->
+<!-- ============================================ -->
+<section class="section-divider" data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.06) 0%, #050505 70%)">
+  <div class="section-number">03</div>
+  <h2>Distribution</h2>
+  <p style="font-size:0.65em;color:var(--text-dim)">6 channels. Activation by signal, not calendar.</p>
+</section>
+
+<section>
+  <h2>Six Channels</h2>
+  <div class="channel-grid">
+    <div class="channel-card glow-blue">
+      <span class="channel-letter">A</span>
+      <h4>GRG CRM + Recruiter Outbound</h4>
+      <p>600K candidates, 210 recruiters. Zero acquisition cost. Highest trust. Day 1 distribution.</p>
+    </div>
+    <div class="channel-card">
+      <span class="channel-letter" style="color:var(--cyan)">B1</span>
+      <h4>Organic Content</h4>
+      <p>3-5 posts/week. Instagram, TikTok, LinkedIn. "How to stand out in a 400-applicant market."</p>
+    </div>
+    <div class="channel-card">
+      <span class="channel-letter" style="color:#8B5CF6">B2</span>
+      <h4>Community Marketing</h4>
+      <p>Career influencers + WhatsApp/Telegram groups. Show up in their communities, don't build from zero.</p>
+    </div>
+    <div class="channel-card">
+      <span class="channel-letter" style="color:var(--pink)">C</span>
+      <h4>Recruiter Affiliates</h4>
+      <p>External distribution multiplier. 20-30% commission on first year. Scale beyond GRG.</p>
+    </div>
+    <div class="channel-card">
+      <span class="channel-letter" style="color:#F59E0B">D</span>
+      <h4>Referral Loop</h4>
+      <p>Gamified viral engine. Points, leaderboard, tier rewards. Target viral coefficient: 1.3+</p>
+    </div>
+    <div class="channel-card">
+      <span class="channel-letter" style="color:#10B981">E</span>
+      <h4>Paid Media</h4>
+      <p>Only after message-market fit proven. Hard CAC cap. Above ceiling for 2 weeks = cut 30%.</p>
+    </div>
+  </div>
+  <aside class="notes">
+    Channel F (B2B) activates at 1,000+ active users. Each channel has an activation trigger, not a calendar date. Paid media is last, not first.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 13: GRG CRM ADVANTAGE -->
+<!-- ============================================ -->
+<section>
+  <h2>The GRG CRM Advantage</h2>
+  <div class="stat-row">
+    <div class="stat-block glow-blue">
+      <div class="stat-number">600K</div>
+      <div class="stat-label">Candidates in Database</div>
+    </div>
+    <div class="stat-block glow-cyan">
+      <div class="stat-number">210</div>
+      <div class="stat-label">Active Recruiters</div>
+    </div>
+    <div class="stat-block glow-pink">
+      <div class="stat-number">$0</div>
+      <div class="stat-label">Acquisition Cost</div>
+    </div>
+  </div>
+  <div class="two-col" style="margin-top:16px">
+    <div>
+      <h3 style="font-size:0.6em">CRM Wave Strategy</h3>
+      <table>
+        <thead><tr><th>Wave</th><th>Size</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Wave 1</td><td>1,000</td><td>Test mechanics, measure signup rate</td></tr>
+          <tr><td>Wave 2</td><td>10,000</td><td>Optimize messaging with Wave 1 data</td></tr>
+          <tr><td>Wave 3</td><td>50,000+</td><td>Full push with proven conversion loop</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h3 style="font-size:0.6em">Conservative to Optimistic</h3>
+      <table>
+        <thead><tr><th>Metric</th><th>Con.</th><th>Opt.</th></tr></thead>
+        <tbody>
+          <tr><td>Candidates pushed</td><td>20K</td><td>30K</td></tr>
+          <tr><td>Trial start rate</td><td>20%</td><td>30%</td></tr>
+          <tr><td>Trial-to-paid</td><td>20%</td><td>30%</td></tr>
+          <tr><td><strong>Paid users</strong></td><td><strong>800</strong></td><td><strong>2,700</strong></td></tr>
+          <tr><td><strong>Revenue</strong></td><td><strong>$120K</strong></td><td><strong>$405K</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="micro" style="margin-top:8px">Day 1 distribution that no startup can replicate. GRG recruiters are the most authentic channel.</p>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 14: RACE TO THE PEAK -->
+<!-- ============================================ -->
+<section>
+  <h2>Race to the Peak <span class="small">&mdash; Gamified Launch</span></h2>
+  <p class="small" style="margin-bottom:12px">Instead of a passive waitlist, the entire lifecycle is a <strong>social game</strong>. On-brand because the product IS gamification.</p>
+  <div class="two-col">
+    <div>
+      <div class="glass-sm" style="margin-bottom:12px">
+        <h3 style="font-size:0.55em;margin:0 0 6px;color:var(--blue)">Precedents</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.48em"><strong>Robinhood:</strong> 1M waitlist users pre-launch</li>
+          <li style="font-size:0.48em"><strong>Harry's:</strong> 100K signups in one week</li>
+          <li style="font-size:0.48em"><strong>Dropbox:</strong> 3,900% growth in 15 months</li>
+        </ul>
+      </div>
+      <div class="glass-sm">
+        <h3 style="font-size:0.55em;margin:0 0 6px;color:var(--pink)">Mechanics</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.45em">Referrals: <strong>+500 pts</strong> | Challenges: <strong>+200 pts</strong></li>
+          <li style="font-size:0.45em">Social follows: <strong>+50 pts</strong> | Daily actions: <strong>+50/day</strong></li>
+          <li style="font-size:0.45em">Leaderboard: top 100 all-time, weekly top 20, city rankings</li>
+          <li style="font-size:0.45em">Push: "You're #847. Your friend just passed you."</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="glass" style="text-align:center">
+        <h3 style="font-size:0.55em;margin:0 0 12px;color:var(--cyan)">Tier Rewards</h3>
+        <div style="font-size:0.45em;text-align:left;line-height:2">
+          <span class="tag tag-blue">500 pts</span> Early beta access<br>
+          <span class="tag tag-cyan">1,000 pts</span> 1 month free<br>
+          <span class="tag tag-pink">2,500 pts</span> Founding badge<br>
+          <span class="tag" style="background:rgba(245,158,11,0.15);color:#F59E0B;border:1px solid rgba(245,158,11,0.3)">5,000 pts</span> Full year free + recruiter intro
+        </div>
+        <div class="sep"></div>
+        <div style="font-size:0.42em;color:var(--text-dim);margin-top:8px">
+          Budget: ~$7K total<br>
+          vs $50K+ traditional launch campaign
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 15: COMMUNITY MARKETING -->
+<!-- ============================================ -->
+<section>
+  <h2>Community Marketing</h2>
+  <div class="glass-sm" style="margin-bottom:16px">
+    <p style="font-size:0.55em;margin:0;color:var(--text);line-height:1.6">
+      Career influencers like <strong class="highlight-pink">Aadhil (THE UAE HR, 120K LinkedIn followers)</strong> have audiences of exactly our target user.
+      Frustrated, applying everywhere, getting ghosted. When someone like that recommends a tool, their audience doesn't question it.
+      That credibility would cost thousands in ads &mdash; <strong>and people scroll past ads, not recommendations</strong>.
+    </p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div>
+      <h3 style="font-size:0.6em">Execution</h3>
+      <ul>
+        <li style="font-size:0.48em">Map <strong>20-30 career creators</strong> in UAE &amp; Saudi</li>
+        <li style="font-size:0.48em">Give them <strong>early access</strong> &mdash; free Zorwa, let them form their own opinion</li>
+        <li style="font-size:0.48em">Selected partners get <strong>affiliate commission</strong> per signup</li>
+        <li style="font-size:0.48em">Seed <strong>WhatsApp/Telegram groups</strong> (hundreds with 500-5K members)</li>
+        <li style="font-size:0.48em">GRG recruiters as <strong>community leaders</strong> with referral links</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:0.6em">Sequence</h3>
+      <div class="glass-sm">
+        <p style="font-size:0.45em;margin:0;color:var(--text-dim);line-height:1.6">
+          <strong class="highlight">1.</strong> Community first &rarr; find working messages<br>
+          <strong class="highlight">2.</strong> Prove conversion in organic channels<br>
+          <strong class="highlight">3.</strong> Then scale with paid media<br><br>
+          <em>Never spend on paid before organic proves the message works.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 16: FINANCIAL SECTION -->
+<!-- ============================================ -->
+<section class="section-divider" data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(139,92,246,0.06) 0%, #050505 70%)">
+  <div class="section-number">04</div>
+  <h2>Financial Model</h2>
+  <p style="font-size:0.65em;color:var(--text-dim)">Three scenarios. Framework holds regardless of which numbers plug in.</p>
+</section>
+
+<section>
+  <h2>Three Scenarios &mdash; Year 1</h2>
+  <div class="scenario-bars" style="height:220px">
+    <div class="scenario-bar-wrap">
+      <div class="scenario-bar" style="height:35%;background:linear-gradient(180deg,#3B82F6,#1E40AF);border:1px solid rgba(59,130,246,0.3)">
+        <span class="scenario-bar-value">$800K</span>
+      </div>
+      <div class="scenario-bar-label">Conservative</div>
+      <div class="micro">5K users</div>
+    </div>
+    <div class="scenario-bar-wrap">
+      <div class="scenario-bar" style="height:65%;background:linear-gradient(180deg,#06B6D4,#0E7490);border:1px solid rgba(6,182,212,0.3)">
+        <span class="scenario-bar-value">$2.45M</span>
+      </div>
+      <div class="scenario-bar-label">Optimistic</div>
+      <div class="micro">15K users</div>
+    </div>
+    <div class="scenario-bar-wrap">
+      <div class="scenario-bar" style="height:100%;background:linear-gradient(180deg,#EC4899,#BE185D);border:1px solid rgba(236,72,153,0.3)">
+        <span class="scenario-bar-value">$4.25M</span>
+      </div>
+      <div class="scenario-bar-label">Moonshot</div>
+      <div class="micro">25K users</div>
+    </div>
+  </div>
+  <table style="margin-top:10px">
+    <thead>
+      <tr><th>Metric</th><th>Conservative</th><th>Optimistic</th><th>Moonshot</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Paying users M12</td><td>5,000</td><td>15,000</td><td>25,000</td></tr>
+      <tr><td>Year 1 revenue</td><td>$800K</td><td>$2.45M</td><td>$4.25M</td></tr>
+      <tr><td>ARR at M12</td><td>$750K</td><td>$2.25M</td><td>$3.75M</td></tr>
+      <tr><td>Trial-to-paid needed</td><td>18%</td><td>22%</td><td>28%</td></tr>
+      <tr><td>Blended CAC</td><td>$40</td><td>$55</td><td>$75</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 17: ZERO PAID MEDIA -->
+<!-- ============================================ -->
+<section>
+  <h2>Zero-Paid-Media Floor</h2>
+  <p class="small" style="margin-bottom:14px">Even without a single dollar of paid media, the math works.</p>
+  <table>
+    <thead>
+      <tr><th>Channel</th><th colspan="2">Conservative</th><th colspan="2">Optimistic</th></tr>
+      <tr><th></th><th>Users</th><th>Revenue</th><th>Users</th><th>Revenue</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>GRG CRM push</td><td>210</td><td>$31.5K</td><td>1,013</td><td>$152K</td></tr>
+      <tr><td>Recruiter outreach</td><td>563</td><td>$84K</td><td>5,513</td><td>$827K</td></tr>
+      <tr><td>Organic content</td><td>90</td><td>$13.5K</td><td>440</td><td>$66K</td></tr>
+      <tr style="background:rgba(59,130,246,0.06)"><td><strong>Total (no ads)</strong></td><td><strong>863</strong></td><td><strong>$129K</strong></td><td><strong>6,966</strong></td><td><strong>$1.04M</strong></td></tr>
+    </tbody>
+  </table>
+  <div class="stat-row" style="margin-top:14px">
+    <div class="stat-block">
+      <div class="stat-number">$120-161K</div>
+      <div class="stat-label">Investment for zero-paid channels</div>
+    </div>
+    <div class="stat-block glow-cyan">
+      <div class="stat-number">1.08x</div>
+      <div class="stat-label">Conservative ROI (break-even)</div>
+    </div>
+    <div class="stat-block glow-blue">
+      <div class="stat-number">6.5x</div>
+      <div class="stat-label">Optimistic ROI</div>
+    </div>
+  </div>
+  <div class="glass-sm" style="text-align:center;margin-top:10px">
+    <span style="font-size:0.55em;color:var(--cyan);font-weight:600">The floor is break-even with zero ad spend. Everything above is upside.</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 18: YEAR 1 INVESTMENT -->
+<!-- ============================================ -->
+<section>
+  <h2>Year 1 Investment: <span class="gradient-text">AED 3.3M</span> <span class="small">(~$897K)</span></h2>
+  <table>
+    <thead>
+      <tr><th>Line Item</th><th>AED</th><th>USD</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Operating team</td><td>2,170,000</td><td>~$590K</td><td>Thiago, Sara, Lucas, Social, Designer, Agency</td></tr>
+      <tr><td>Paid media</td><td>400,000</td><td>~$109K</td><td>Only activated after gates pass</td></tr>
+      <tr><td>Infra, tools, content, legal</td><td>700,000</td><td>~$175K</td><td>WhatsApp Business, affiliates, contingency</td></tr>
+      <tr><td>Gamified launch</td><td>25,700</td><td>~$7K</td><td>Viral Loops + prizes + merch</td></tr>
+      <tr style="background:rgba(59,130,246,0.06)"><td>Dev team (6 engineers)</td><td colspan="2">GRG-covered</td><td>Already working</td></tr>
+      <tr style="background:rgba(6,182,212,0.08)"><td><strong>Total</strong></td><td><strong>~3,296,000</strong></td><td><strong>~$897K</strong></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="glass-sm" style="text-align:center;margin-top:16px">
+    <span style="font-size:0.55em;color:var(--text-dim)">
+      <strong class="highlight">Spend follows signal.</strong> If channels don't validate, paid media budget doesn't get spent.
+      <br>Never scale with weak conversion.
+    </span>
+  </div>
+  <aside class="notes">
+    Break-even (ex-dev): ~7,200 paying users. Full cost break-even: ~10,100 users. Conservative scenario has a small gap that closes in early Year 2 as the base renews at 75%.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 19: EXECUTION SECTION -->
+<!-- ============================================ -->
+<section class="section-divider" data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(245,158,11,0.05) 0%, #050505 70%)">
+  <div class="section-number">05</div>
+  <h2>Execution Roadmap</h2>
+  <p style="font-size:0.65em;color:var(--text-dim)">Phases advance on gate results, not calendar dates.</p>
+</section>
+
+<section>
+  <h2>30 &bull; 60 &bull; 90 &bull; 180 &bull; 365</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-label">Day 0-30</div>
+      <div class="timeline-desc">Foundation &amp; Instrumentation<br><br>Product ready. Measurement works. Waitlist live. Brand locked.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-label">Day 31-60</div>
+      <div class="timeline-desc">Controlled Beta<br><br>CRM Wave 1 &amp; 2. Pricing experiments. First signal.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-label">Day 61-90</div>
+      <div class="timeline-desc">Validation Sprint<br><br>Lock pricing. Confirm retention. 500+ paid users.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-label">Day 91-180</div>
+      <div class="timeline-desc">Public Launch<br><br>Race to the Peak. Scale proven channels. First revenue.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-label">Day 181-365</div>
+      <div class="timeline-desc">Scale &amp; Expand<br><br>Hit targets. B2B pipeline. Prepare Year 2.</div>
+    </div>
+  </div>
+  <div class="glass-sm" style="text-align:center;margin-top:16px">
+    <span style="font-size:0.48em;color:var(--text-dim)">Each phase has <strong class="highlight">entry criteria, exit gates, and kill rules</strong>. No gut calls &mdash; data decides advancement.</span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 20: DAY 0-30 -->
+<!-- ============================================ -->
+<section>
+  <h2><span class="tag tag-blue" style="font-size:0.5em;vertical-align:middle">Day 0-30</span> Foundation</h2>
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:0.55em">Key Actions</h3>
+      <ul>
+        <li style="font-size:0.48em">Complete <strong>6 modules</strong> end-to-end testable</li>
+        <li style="font-size:0.48em">Ship <strong>gamified waitlist</strong> with Viral Loops ($99/mo)</li>
+        <li style="font-size:0.48em">Set up <strong>measurement stack</strong> (trial, conversion, D7/D14/D30)</li>
+        <li style="font-size:0.48em">Finalize <strong>brand guidelines</strong> + bilingual logo</li>
+        <li style="font-size:0.48em"><strong>Arabic-first</strong> onboarding QA</li>
+        <li style="font-size:0.48em">Build <strong>recruiter affiliate dashboard</strong></li>
+        <li style="font-size:0.48em">Launch <strong>career content</strong> (3-5/week)</li>
+        <li style="font-size:0.48em">Map <strong>20-30 influencers</strong> in UAE &amp; Saudi</li>
+        <li style="font-size:0.48em">Define <strong>CRM segments</strong> for beta push</li>
+      </ul>
+    </div>
+    <div>
+      <div class="glass" style="margin-bottom:14px">
+        <h3 style="font-size:0.55em;color:var(--cyan);margin:0 0 8px">Exit Gate</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.42em">Product flow stable in staging</li>
+          <li style="font-size:0.42em">Instrumentation complete &amp; verified</li>
+          <li style="font-size:0.42em">Waitlist live with <strong>1K+ signups</strong></li>
+          <li style="font-size:0.42em">CRM segments defined</li>
+          <li style="font-size:0.42em">Brand guidelines locked</li>
+        </ul>
+      </div>
+      <div class="glass-sm" style="border-color:rgba(236,72,153,0.2)">
+        <h3 style="font-size:0.5em;color:var(--pink);margin:0 0 4px">Kill Rule</h3>
+        <p style="font-size:0.4em;margin:0;color:var(--text-dim)">Product not testable end-to-end by Day 30 &rarr; pause all GTM, focus exclusively on product.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 21: DAY 31-90 -->
+<!-- ============================================ -->
+<section>
+  <h2><span class="tag tag-cyan" style="font-size:0.5em;vertical-align:middle">Day 31-90</span> Beta &amp; Validation</h2>
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:0.55em">Beta (Day 31-60)</h3>
+      <ul>
+        <li style="font-size:0.45em"><strong>CRM Wave 1</strong> (1K candidates) &rarr; measure everything</li>
+        <li style="font-size:0.45em"><strong>Pricing Experiment</strong>: $150 vs $199 vs $249</li>
+        <li style="font-size:0.45em"><strong>Positioning Experiment</strong>: 3 message variants</li>
+        <li style="font-size:0.45em"><strong>5-10 influencer</strong> early access partnerships</li>
+        <li style="font-size:0.45em"><strong>CRM Wave 2</strong> (10K) with optimized messaging</li>
+        <li style="font-size:0.45em">Onboard <strong>20 external affiliates</strong></li>
+      </ul>
+      <h3 style="font-size:0.55em;margin-top:12px">Validation (Day 61-90)</h3>
+      <ul>
+        <li style="font-size:0.45em"><strong>Lock annual price</strong> based on experiment data</li>
+        <li style="font-size:0.45em"><strong>Trial duration</strong> experiment (7 vs 14 days)</li>
+        <li style="font-size:0.45em"><strong>CRM Wave 3</strong> (50K+) with proven messaging</li>
+        <li style="font-size:0.45em">Scale affiliates to <strong>50+</strong></li>
+        <li style="font-size:0.45em">Seed <strong>10+ WhatsApp/Telegram</strong> communities</li>
+        <li style="font-size:0.45em">Start <strong>B2B pilot</strong> conversations (3-5 employers)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="glass" style="margin-bottom:14px">
+        <h3 style="font-size:0.55em;color:var(--cyan);margin:0 0 8px">Exit Gate (Day 90)</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.42em">Price locked with data</li>
+          <li style="font-size:0.42em">Trial-to-paid <strong>&gt; 12%</strong></li>
+          <li style="font-size:0.42em">D7 retention <strong>&gt; 30%</strong></li>
+          <li style="font-size:0.42em">D30 retention <strong>&gt; 20%</strong></li>
+          <li style="font-size:0.42em">CRM response rate <strong>&gt; 15%</strong></li>
+          <li style="font-size:0.42em">Total paid users <strong>&gt; 500</strong></li>
+        </ul>
+      </div>
+      <div class="glass-sm" style="border-color:rgba(236,72,153,0.2)">
+        <h3 style="font-size:0.5em;color:var(--pink);margin:0 0 4px">Kill Rules</h3>
+        <p style="font-size:0.38em;margin:0;color:var(--text-dim);line-height:1.5">
+          Trial-to-paid &lt; 8% after pricing adj &rarr; pivot discussion<br>
+          D30 retention &lt; 15% &rarr; stop acquisition, fix product
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 22: DAY 91-180 -->
+<!-- ============================================ -->
+<section>
+  <h2><span class="tag tag-pink" style="font-size:0.5em;vertical-align:middle">Day 91-180</span> Public Launch</h2>
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:0.55em">Launch Actions</h3>
+      <ul>
+        <li style="font-size:0.48em"><strong>Public launch</strong> in UAE + Riyadh (if validated)</li>
+        <li style="font-size:0.48em"><strong>7-day "Race to the Peak"</strong> launch sprint with daily challenges</li>
+        <li style="font-size:0.48em">Activate <strong>paid media</strong> with proven messaging &amp; strict CAC caps</li>
+        <li style="font-size:0.48em">Scale <strong>all channels</strong> simultaneously</li>
+        <li style="font-size:0.48em">Expand <strong>B2B pilots</strong> to 5-10 employers</li>
+        <li style="font-size:0.48em">Launch <strong>Zorwa Ambassador</strong> program (top 50 beta users)</li>
+        <li style="font-size:0.48em">External <strong>agency activation</strong> (events, media)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="glass" style="margin-bottom:14px">
+        <h3 style="font-size:0.55em;color:var(--cyan);margin:0 0 8px">Exit Gate</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.42em"><strong>500+ new paid users</strong> in launch month</li>
+          <li style="font-size:0.42em">Blended CAC below ceiling</li>
+          <li style="font-size:0.42em">Retention stable or improving</li>
+          <li style="font-size:0.42em">No single-channel dependency &gt; 60%</li>
+          <li style="font-size:0.42em">Path to break-even visible</li>
+        </ul>
+      </div>
+      <div class="glass-sm" style="border-color:rgba(236,72,153,0.2)">
+        <h3 style="font-size:0.5em;color:var(--pink);margin:0 0 4px">Kill Rules</h3>
+        <p style="font-size:0.38em;margin:0;color:var(--text-dim);line-height:1.5">
+          Paid CAC above ceiling 4 weeks &rarr; cut 50%, shift to organic<br>
+          Total users &lt; 1,500 at Day 180 &rarr; UAE-only, reduce team
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 23: DAY 181-365 -->
+<!-- ============================================ -->
+<section>
+  <h2><span class="tag" style="font-size:0.5em;vertical-align:middle;background:rgba(245,158,11,0.15);color:#F59E0B;border:1px solid rgba(245,158,11,0.3)">Day 181-365</span> Scale</h2>
+  <div class="two-col">
+    <div>
+      <h3 style="font-size:0.55em">Scale Actions</h3>
+      <ul>
+        <li style="font-size:0.48em"><strong>Scale proven channels</strong>, kill underperformers</li>
+        <li style="font-size:0.48em"><strong>B2B pipeline</strong> acceleration &rarr; $200K+ pipeline</li>
+        <li style="font-size:0.48em"><strong>Year 1 retention</strong> cohort analysis &amp; renewal preparation</li>
+        <li style="font-size:0.48em"><strong>Post-hire value tracks</strong>: career growth, salary benchmarking, alumni</li>
+        <li style="font-size:0.48em">Evaluate <strong>Year 2 expansion</strong>: supply markets, enterprise, new verticals</li>
+        <li style="font-size:0.48em"><strong>Hire specialists</strong> for proven channels</li>
+      </ul>
+    </div>
+    <div>
+      <div class="glass" style="margin-bottom:14px">
+        <h3 style="font-size:0.55em;color:var(--cyan);margin:0 0 8px">Year 1 Review Gate</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.42em">Revenue on track for active scenario</li>
+          <li style="font-size:0.42em">Retention trend positive</li>
+          <li style="font-size:0.42em">Path to break-even within 3 months</li>
+          <li style="font-size:0.42em">Year 2 plan backed by <strong>data, not aspiration</strong></li>
+        </ul>
+      </div>
+      <div class="glass-sm" style="border-color:rgba(236,72,153,0.2)">
+        <h3 style="font-size:0.5em;color:var(--pink);margin:0 0 4px">Kill Rule</h3>
+        <p style="font-size:0.38em;margin:0;color:var(--text-dim);line-height:1.5">
+          No path to operating break-even by Month 15 &rarr; renegotiate team or pivot model
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 24: TEAM SECTION -->
+<!-- ============================================ -->
+<section class="section-divider" data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(16,185,129,0.05) 0%, #050505 70%)">
+  <div class="section-number">06</div>
+  <h2>Team &amp; Closing</h2>
+</section>
+
+<section>
+  <h2>The Team</h2>
+  <div class="team-grid">
+    <div class="team-card glow-blue">
+      <div class="name">Thiago Oliveira</div>
+      <div class="role">Head of Product &amp; Growth (CPO)</div>
+      <div class="detail">Month 1 &bull; AED 45K/mo<br>Owns product, strategy, weekly reviews</div>
+    </div>
+    <div class="team-card">
+      <div class="name">Sara Heck</div>
+      <div class="role">Head of Recruiter Ecosystem</div>
+      <div class="detail">Month 1 &bull; AED 30K/mo<br>CRM segments, affiliates, recruiter network</div>
+    </div>
+    <div class="team-card glow-cyan">
+      <div class="name">Lucas Antunes</div>
+      <div class="role">Growth / Data / CRM / Paid</div>
+      <div class="detail">Month 1 &bull; AED 45K/mo<br>AI-first one-man growth army</div>
+    </div>
+    <div class="team-card">
+      <div class="name">Social Media Lead</div>
+      <div class="role">TBH &mdash; Rockstar Level</div>
+      <div class="detail">Month 2 &bull; AED 30K/mo<br>3-5 posts/week, content engine</div>
+    </div>
+    <div class="team-card">
+      <div class="name">Designer / UX</div>
+      <div class="role">TBH &mdash; Hybrid UI + Research</div>
+      <div class="detail">Month 3 &bull; AED 22K/mo<br>Product design, brand consistency</div>
+    </div>
+    <div class="team-card">
+      <div class="name">External Agency</div>
+      <div class="role">Traditional Mkt &amp; Events</div>
+      <div class="detail">Month 4 &bull; AED 20K/mo<br>Events, media, PR</div>
+    </div>
+  </div>
+  <div class="glass-sm" style="text-align:center;margin-top:14px">
+    <span style="font-size:0.5em;color:var(--text-dim)">
+      <strong>6 engineers</strong> already working (GRG-covered) &bull;
+      Operating team Year 1: <strong class="highlight">AED 2.17M (~$590K)</strong>
+    </span>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 25: GROWTH MODEL -->
+<!-- ============================================ -->
+<section>
+  <h2>Growth Model: <span class="gradient-text">AI-First, One Operator</span></h2>
+  <div class="two-col">
+    <div>
+      <p style="font-size:0.6em;margin-bottom:14px"><strong>Lucas Antunes</strong> owns the complete growth stack.</p>
+      <div class="glass-sm" style="margin-bottom:12px">
+        <h3 style="font-size:0.55em;margin:0 0 8px;color:var(--cyan)">Scope</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.42em">Paid media setup &amp; optimization</li>
+          <li style="font-size:0.42em">CRM automation &amp; lifecycle flows</li>
+          <li style="font-size:0.42em">Community marketing execution</li>
+          <li style="font-size:0.42em">Referral &amp; affiliate program ops</li>
+          <li style="font-size:0.42em">Analytics infrastructure &amp; dashboards</li>
+          <li style="font-size:0.42em">Content distribution</li>
+          <li style="font-size:0.42em">Growth experiment design &amp; analysis</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="glass" style="margin-bottom:14px">
+        <h3 style="font-size:0.55em;margin:0 0 8px;color:var(--pink)">Why One Person?</h3>
+        <ul style="margin:0;padding-left:1em">
+          <li style="font-size:0.42em">Pre-PMF needs <strong>speed and learning</strong>, not headcount</li>
+          <li style="font-size:0.42em">AI tools in 2026 enable one person to run what took <strong>a team of 5</strong></li>
+          <li style="font-size:0.42em">GRG expects <strong>capital efficiency</strong></li>
+          <li style="font-size:0.42em">Validate channels first, hire specialists when proven</li>
+        </ul>
+      </div>
+      <div class="stat-row" style="gap:12px">
+        <div class="stat-block" style="padding:14px">
+          <div class="stat-number" style="font-size:1.4em">2-3</div>
+          <div class="stat-label">Experiments / Week</div>
+        </div>
+        <div class="stat-block" style="padding:14px">
+          <div class="stat-number pink" style="font-size:1.4em">0</div>
+          <div class="stat-label">Manual Dashboard Assembly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 26: WHY NOW -->
+<!-- ============================================ -->
+<section data-background-gradient="radial-gradient(ellipse at 50% 50%, rgba(59,130,246,0.06) 0%, #050505 70%)">
+  <h2>Why Now?</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin:24px 0">
+    <div class="glass glow-blue" style="text-align:center">
+      <div style="font-size:1.6em;margin-bottom:8px">&#x26A1;</div>
+      <h3 style="font-size:0.6em;color:var(--blue);margin:0 0 8px">Crisis = Audience</h3>
+      <p style="font-size:0.42em;margin:0;color:var(--text-dim);line-height:1.5">Gulf crisis increases career anxiety. Job seekers start upskilling immediately, not months later.</p>
+    </div>
+    <div class="glass glow-cyan" style="text-align:center">
+      <div style="font-size:1.6em;margin-bottom:8px">&#x1F4C8;</div>
+      <h3 style="font-size:0.6em;color:var(--cyan);margin:0 0 8px">Recovery = Revenue</h3>
+      <p style="font-size:0.42em;margin:0;color:var(--text-dim);line-height:1.5">Recovery hiring booms exceed pre-crisis levels. Platforms that exist during the downturn capture the upswing.</p>
+    </div>
+    <div class="glass glow-pink" style="text-align:center">
+      <div style="font-size:1.6em;margin-bottom:8px">&#x1F30D;</div>
+      <h3 style="font-size:0.6em;color:var(--pink);margin:0 0 8px">No Competition</h3>
+      <p style="font-size:0.42em;margin:0;color:var(--text-dim);line-height:1.5">Nobody operates a gamified career platform in the Gulf. 16 competitors benchmarked. None have our combination.</p>
+    </div>
+  </div>
+  <div class="stat-row" style="justify-content:center">
+    <div class="stat-block" style="max-width:200px">
+      <div class="stat-number">80%</div>
+      <div class="stat-label">Probability Sep 2026 launch viable</div>
+    </div>
+    <div class="stat-block" style="max-width:200px">
+      <div class="stat-number pink">100%</div>
+      <div class="stat-label">Chance product dev should continue now</div>
+    </div>
+  </div>
+  <aside class="notes">
+    Three timing scenarios: Quick resolution (35%), Extended tension (45%), Major escalation (20%). Probability-weighted: 80% chance September 2026 launch is viable. 100% chance product development should continue now regardless.
+  </aside>
+</section>
+
+<!-- ============================================ -->
+<!-- SLIDE 27: CLOSE -->
+<!-- ============================================ -->
+<section class="cta-slide" data-background-gradient="radial-gradient(ellipse at 50% 40%, rgba(6,182,212,0.08) 0%, rgba(59,130,246,0.04) 40%, #050505 80%)">
+  <div class="mountain-container" style="margin-bottom:20px">
+    <svg viewBox="0 0 320 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="mtnGrad3" x1="0" y1="0" x2="320" y2="140" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.6"/>
+          <stop offset="50%" stop-color="#06B6D4" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#EC4899" stop-opacity="0.3"/>
+        </linearGradient>
+      </defs>
+      <polygon points="0,140 40,95 90,110 130,70 170,90 210,55 260,80 300,65 320,140" fill="rgba(59,130,246,0.08)"/>
+      <polygon points="60,140 160,20 260,140" fill="url(#mtnGrad3)" opacity="0.5"/>
+      <polygon points="140,45 160,20 180,45 170,42 160,50 150,42" fill="rgba(255,255,255,0.2)"/>
+      <circle cx="160" cy="16" r="4" fill="#06B6D4" filter="url(#glow)" opacity="0.9"/>
+      <circle cx="160" cy="16" r="2" fill="white"/>
+    </svg>
+  </div>
+  <p class="big-quote" style="text-align:center;border:none;padding:0;max-width:700px;margin:0 auto 30px">
+    "The summit is not the destination.<br>It is the starting point."
+  </p>
+  <h2 style="text-align:center"><span class="gradient-text">Let's build Zorwa.</span></h2>
+  <p class="arabic-title" style="font-size:1.2em;margin:10px 0 30px">&#x0632;&#x064F;&#x0631;&#x0652;&#x0648;&#x064E;&#x0629;</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+    <span class="tag tag-blue" style="font-size:0.55em">Product Ready</span>
+    <span class="tag tag-cyan" style="font-size:0.55em">Distribution Ready</span>
+    <span class="tag tag-pink" style="font-size:0.55em">Team Ready</span>
+  </div>
+  <aside class="notes">
+    The crisis creates the audience. The recovery creates the revenue. With GRG's distribution, a proven team, and a clear execution roadmap, Zorwa is positioned to own gamified career acceleration in the Gulf.
+  </aside>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: true,
+  progress: true,
+  center: false,
+  transition: 'fade',
+  transitionSpeed: 'default',
+  backgroundTransition: 'fade',
+  width: 1280,
+  height: 720,
+  margin: 0.04,
+  minScale: 0.2,
+  maxScale: 2.0,
+  plugins: []
+});
+</script>
+</body>
+</html>
